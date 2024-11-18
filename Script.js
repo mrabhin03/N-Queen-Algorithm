@@ -11,6 +11,14 @@ function isNumber(value) {
     tempmax = prompt("Enter the row number:"); 
     if (isNumber(tempmax)) {
       tempmax = Number(tempmax); 
+      if(tempmax<=3){
+        alert('There is no solution for number under 3')
+        continue
+      }
+      if(tempmax>10){
+        alert('This will take time so try lower number')
+        continue
+      }
       break;
     } else {
       alert("Please enter a valid number."); 
