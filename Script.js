@@ -120,10 +120,12 @@ async function result(){
     }
     if(!placeQueen(0,nonQueenCount)){
         alert("This Can't be Solved")
+    }else{
+        wonTheGame()
     }
     Spinner.style.display='none';
     reset=true
-    wonTheGame()
+    
 }
 
 function placeQueen(row,nonQueenCount){
