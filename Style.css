@@ -15,6 +15,9 @@ body{
     display: grid;
     place-items: center;
 }
+.Won{
+  background-color: rgb(142, 255, 142) !important;
+}
 body>div{
    display: flex;
    align-items: center;
@@ -44,6 +47,13 @@ h1{
     
     background-color: #ededed;
     cursor: pointer;
+    /* transition: all .5s ease-in-out; */
+  }
+  .Wrong{
+    background-color: rgb(254, 179, 179) !important;
+  }
+  .Observe{
+    background-color: rgb(185, 254, 179);
   }
   .Queen{
     background-color: white;

@@ -6,7 +6,7 @@ function isNumber(value) {
     return !isNaN(value) && value.trim() !== '';
   }
   
-  let tempmax = 4;
+  let tempmax = 5;
   while (true) {
     tempmax = prompt("Enter the row number:"); 
     if (isNumber(tempmax)) {
@@ -58,8 +58,12 @@ function AddQueen(row,col){
     }else{
         if(placement(row,col)){
             object.classList.add("Queen")
+            let queens=document.querySelectorAll(".Queen");
+            if(queens.length==max){
+                wonTheGame();
+            }
         }else{
-            alert("Cant add here")
+            
         }
     }
 }
@@ -74,6 +78,24 @@ function resetall(){
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+async function wonTheGame(){
+    for(let i=max-1;i>=0;i--){
+        await sleep(100)
+        for(let j=max-1;j>=0;j--){
+            let object=document.getElementById(i+","+j);
+            
+            object.classList.add("Won");
+        }
+    }
+    for(let i=max-1;i>=0;i--){
+        await sleep(100)
+        for(let j=max-1;j>=0;j--){
+            let object=document.getElementById(i+","+j);
+            object.classList.remove("Observe")
+            object.classList.remove("Won");
+        }
+    }
 }
 async function result(){
     // resetall();
@@ -101,6 +123,7 @@ async function result(){
     }
     Spinner.style.display='none';
     reset=true
+    wonTheGame()
 }
 
 function placeQueen(row,nonQueenCount){
@@ -172,3 +195,142 @@ function placement(row,col){
     }
     return true
 }
+
+
+document.querySelectorAll('.cell-input').forEach(cell => {
+    cell.addEventListener('mouseenter', () => {
+        let queens=document.querySelectorAll(".Queen");
+        if(queens.length!=max){
+            let objectid=cell.id;
+            objectid=objectid.split(",")
+            let row=objectid[0];
+            let col=objectid[1];
+            for(let i=0;i<max;i++){
+                let object=document.getElementById(row+","+i);
+                if(!object.classList.contains("Observe")){
+                    if(object.classList.contains("Queen") && i!=col){
+                        object.classList.add("Wrong")
+                    }else{
+                        object.classList.add("Observe")
+                    }
+                }
+            }
+            for(let i=0;i<max;i++){
+                let object=document.getElementById(i+","+col);
+                if(!object.classList.contains("Observe")){
+                    if(object.classList.contains("Queen") && i!=row){
+                        object.classList.add("Wrong")
+                    }else{
+                        object.classList.add("Observe")
+                    }
+                }
+            }
+
+            for(let i=row,j=col;i>=0&&j>=0;i--,j--){
+                let object=document.getElementById(i+","+j);
+                if(!object.classList.contains("Observe")){
+                    if(object.classList.contains("Queen") ){
+                        object.classList.add("Wrong")
+                    }else{
+                        object.classList.add("Observe")
+                    }
+                }
+            }
+            for(let i=row,j=col;i<max&&j<max;i++,j++){
+                let object=document.getElementById(i+","+j);
+                if(!object.classList.contains("Observe")){
+                    if(object.classList.contains("Queen")){
+                        object.classList.add("Wrong")
+                    }else{
+                        object.classList.add("Observe")
+                    }
+                }
+            }
+            for(let i=row,j=col;i<max&&j>=0;i++,j--){
+                let object=document.getElementById(i+","+j);
+                if(!object.classList.contains("Observe")){
+                    if(object.classList.contains("Queen")){
+                        object.classList.add("Wrong")
+                    }else{
+                        object.classList.add("Observe")
+                    }
+                }
+            }
+            for(let i=row,j=col;i>=0&&j<max;i--,j++){
+                let object=document.getElementById(i+","+j);
+                if(!object.classList.contains("Observe")){
+                    if(object.classList.contains("Queen")){
+                        object.classList.add("Wrong")
+                    }else{
+                        object.classList.add("Observe")
+                    }
+                }
+            }
+        }
+    });
+    cell.addEventListener('mouseleave', () => {
+        let objectid=cell.id;
+        objectid=objectid.split(",")
+        let row=objectid[0];
+        let col=objectid[1];
+        for(let i=0;i<max;i++){
+          let object=document.getElementById(row+","+i);
+          if(object.classList.contains("Wrong")){
+            object.classList.remove("Wrong")
+            }
+          if(object.classList.contains("Observe")){
+                object.classList.remove("Observe")
+            }
+        }
+        for(let i=0;i<max;i++){
+            let object=document.getElementById(i+","+col);
+            if(object.classList.contains("Wrong")){
+                object.classList.remove("Wrong")
+            }
+            if(object.classList.contains("Observe")){
+                object.classList.remove("Observe")
+            }
+        }
+
+        for(let i=row,j=col;i>=0&&j>=0;i--,j--){
+            let object=document.getElementById(i+","+j);
+            if(object.classList.contains("Wrong")){
+                object.classList.remove("Wrong")
+            }
+            if(object.classList.contains("Observe")){
+                object.classList.remove("Observe")
+            }
+          }
+          for(let i=row,j=col;i<max&&j<max;i++,j++){
+            let object=document.getElementById(i+","+j);
+            if(object.classList.contains("Wrong")){
+                object.classList.remove("Wrong")
+            }
+            if(object.classList.contains("Observe")){
+                object.classList.remove("Observe")
+            }
+          }
+          for(let i=row,j=col;i<max&&j>=0;i++,j--){
+            let object=document.getElementById(i+","+j);
+            if(object.classList.contains("Wrong")){
+                object.classList.remove("Wrong")
+            }
+            if(object.classList.contains("Observe")){
+                object.classList.remove("Observe")
+            }
+          }
+          for(let i=row,j=col;i>=0&&j<max;i--,j++){
+            let object=document.getElementById(i+","+j);
+            if(object.classList.contains("Wrong")){
+                object.classList.remove("Wrong")
+            }
+            if(object.classList.contains("Observe")){
+                object.classList.remove("Observe")
+            }
+          }
+
+
+      });
+
+  });
+  
